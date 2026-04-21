@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Navbar({ swiper }) {
+const HASHES = ['hero', 'skills', 'experience', 'projects', 'contact'];
+
+export default function Navbar({ swiper, isMobile }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleNav = (e, index) => {
     e.preventDefault();
-    if (swiper) swiper.slideTo(index);
+    if (swiper) {
+      // Tablet / PC – dùng Swiper
+      swiper.slideTo(index);
+    } else {
+      // Mobile nhỏ – scroll bình thường đến section
+      const target = document.getElementById(HASHES[index]);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsOpen(false);
   };
 

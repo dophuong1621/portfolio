@@ -363,12 +363,10 @@ section {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 1rem 1rem 2rem;
+  padding: 1rem 1rem 1.2rem;
   cursor: grab;
 }
-.experience-grid::-webkit-scrollbar { height: 4px; }
-.experience-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 99px; }
-.experience-grid::-webkit-scrollbar-thumb { background: var(--brand-3); border-radius: 99px; }
+
 
 .experience-card {
   flex: 0 0 calc(33.333% - 1rem); /* 3 cột trên PC */
@@ -491,12 +489,49 @@ section {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 1rem 1rem 2rem;
+  padding: 1rem 1rem 1.2rem;
   cursor: grab;
 }
-.projects-grid::-webkit-scrollbar { height: 4px; }
-.projects-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 99px; }
-.projects-grid::-webkit-scrollbar-thumb { background: var(--brand-3); border-radius: 99px; }
+
+/* ─── SCROLLABLE GRID WRAPPER (luôn hiện thị indicator) ─── */
+.scrollable-grid-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Ẩn native scrollbar – dùng custom indicator thay thế */
+.hide-native-scrollbar {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+.hide-native-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome/Safari */
+}
+
+/* Track luôn hiện */
+.scroll-track {
+  position: relative;
+  height: 6px;
+  margin: 0.6rem 1rem 0;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 99px;
+  cursor: pointer;
+  overflow: hidden; /* giữ thumb trong track */
+}
+
+/* Thumb di động */
+.scroll-thumb {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
+  border-radius: 99px;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.55);
+  transition: left 0.08s linear, width 0.08s linear;
+  pointer-events: none;
+}
+
 
 .project-card {
   flex: 0 0 calc(33.333% - 1rem);
@@ -667,6 +702,50 @@ footer {
   .timeline::before { left: 14px; }
   .timeline-content { padding-left: 36px; padding-top: 10px; }
   .timeline-dot { left: 14px; }
+}
+
+/* ─── MOBILE NHỎ (≤ 480px): bỏ Swiper, dùng scroll thường ─── */
+@media (max-width: 480px) {
+  /* Cho phép trang cuộn bình thường */
+  html, body, #root {
+    height: auto;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  /* Wrapper bao toàn bộ sections */
+  .mobile-scroll-layout {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px; /* chiều cao navbar */
+    width: 100%;
+  }
+
+  /* Mỗi section wrapper trong mobile layout */
+  .mobile-scroll-layout > * {
+    width: 100%;
+  }
+
+  /* Ẩn Swiper pagination trên mobile nhỏ (không có Swiper) */
+  .swiper-pagination { display: none; }
+
+  /* Sections tự nhiên – không cần full-height */
+  .mobile-scroll-layout section {
+    min-height: auto;
+    padding: 3rem 5%;
+    justify-content: flex-start;
+  }
+
+  /* Contact+Footer wrapper */
+  .mobile-contact-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* scroll-margin-top cho các section gốc của component */
+  #hero, #skills, #experience, #projects, #contact {
+    scroll-margin-top: 70px;
+  }
 }
 
 /* ─── CUSTOM ADDITIONS ─── */

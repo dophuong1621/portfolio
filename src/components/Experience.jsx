@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import useDraggableScroll from '../hooks/useDraggableScroll';
+import ScrollableGrid from './ScrollableGrid';
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,7 +16,6 @@ const cardVariants = {
 };
 
 export default function Experience({ isActive }) {
-  const dragRef = useDraggableScroll();
 
   return (
     <section id="experience">
@@ -33,8 +33,7 @@ export default function Experience({ isActive }) {
         <div className="section-line"></div>
       </motion.div>
       
-      <motion.div 
-        ref={dragRef}
+      <ScrollableGrid
         className="experience-grid swiper-no-swiping"
         variants={containerVariants}
         initial="hidden"
@@ -82,7 +81,7 @@ export default function Experience({ isActive }) {
             <li>Đảm bảo responsive hoạt động mượt mà trên mọi thiết bị</li>
           </ul>
         </motion.div>
-      </motion.div>
+      </ScrollableGrid>
     </section>
   );
 }
