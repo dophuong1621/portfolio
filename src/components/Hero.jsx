@@ -36,7 +36,7 @@ export default function Hero({ swiper, isActive }) {
           <div className="hero-role" style={{ minHeight: '30px' }}>
             <Typewriter
               options={{
-                strings: ['Frontend Developer', 'UI/UX Enthusiast', 'Web Designer', 'PHP Developer'],
+                strings: ['PHP Developer', 'Full-Stack Developer', 'Linux Server Admin', 'QA Automation Tester', 'UI/UX Enthusiast'],
                 autoStart: true,
                 loop: true,
                 delay: 40,
