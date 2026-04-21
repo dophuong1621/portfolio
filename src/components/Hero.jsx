@@ -62,9 +62,20 @@ export default function Hero({ swiper, isActive }) {
             </Magnetic>
           </div>
           <div className="stat-chips">
-            <div className="stat-chip"><b>3+</b> năm kinh nghiệm</div>
-            <div className="stat-chip"><b>10+</b> dự án hoàn thành</div>
-            {/* <div className="stat-chip">🟢 Sẵn sàng nhận việc</div> */}
+            <div
+              className="stat-chip stat-chip--link"
+              onClick={() => swiper && swiper.slideTo(2)}
+              title="Xem Kinh nghiệm"
+            >
+              <b>3+</b> năm kinh nghiệm
+            </div>
+            <div
+              className="stat-chip stat-chip--link"
+              onClick={() => swiper && swiper.slideTo(3)}
+              title="Xem Dự án"
+            >
+              <b>10+</b> dự án hoàn thành
+            </div>
           </div>
         </motion.div>
         

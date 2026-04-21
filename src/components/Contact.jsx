@@ -34,14 +34,14 @@ export default function Contact({ isActive }) {
         <div className="contact-cards">
           <a href="tel:0522901602" className="contact-card">
             <div className="contact-icon"><FaPhone /></div>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <div className="contact-label">Điện thoại</div>
               <div className="contact-value">0522 901 602</div>
             </div>
           </a>
           <a href="mailto:dtp1621@gmail.com" className="contact-card">
             <div className="contact-icon"><FaEnvelope /></div>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               <div className="contact-label">Email</div>
               <div className="contact-value">dtp1621@gmail.com</div>
             </div>

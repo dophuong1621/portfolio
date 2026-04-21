@@ -197,6 +197,15 @@ nav {
   display: flex; align-items: center; gap: .5rem; color: var(--muted);
 }
 .stat-chip b { color: var(--text); }
+.stat-chip--link {
+  cursor: pointer;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.stat-chip--link:hover {
+  border-color: rgba(168,85,247,0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(168,85,247,0.15);
+}
 
 /* ─── SWIPER COMMON ─── */
 .mySwiper {
