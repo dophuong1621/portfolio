@@ -14,14 +14,17 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 }
 };
 
-export default function Skills() {
+export default function Skills({ isActive }) {
   return (
     <section id="skills">
       <motion.div 
         className="section-header"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+        variants={{
+          hidden: { opacity: 0, y: -20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+        }}
       >
         <p className="section-label">Năng lực</p>
         <h2 className="section-title">Kỹ Năng Chuyên Môn</h2>
@@ -32,7 +35,7 @@ export default function Skills() {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isActive ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
           <div className="skill-group-title"><FaCode /> Ngôn ngữ lập trình</div>
@@ -46,7 +49,7 @@ export default function Skills() {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isActive ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
           <div className="skill-group-title"><FaLayerGroup /> Framework & Library</div>
@@ -60,7 +63,7 @@ export default function Skills() {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={isActive ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
           <div className="skill-group-title"><FaTools /> Tools & Platform</div>

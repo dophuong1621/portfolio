@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import useDraggableScroll from '../hooks/useDraggableScroll';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -13,15 +14,19 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
 };
 
-export default function Experience() {
+export default function Experience({ isActive }) {
+  const dragRef = useDraggableScroll();
+
   return (
     <section id="experience">
       <motion.div 
         className="section-header"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+        variants={{
+          hidden: { opacity: 0, scale: 0.9 },
+          visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+        }}
       >
         <p className="section-label">Hành trình</p>
         <h2 className="section-title">Kinh Nghiệm Làm Việc</h2>
@@ -29,10 +34,11 @@ export default function Experience() {
       </motion.div>
       
       <motion.div 
-        className="experience-grid"
+        ref={dragRef}
+        className="experience-grid swiper-no-swiping"
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        animate={isActive ? "visible" : "hidden"}
       >
         <motion.div variants={cardVariants} className="experience-card">
           <div className="timeline-meta" style={{ marginBottom: '1.2rem', alignItems: 'flex-start' }}>

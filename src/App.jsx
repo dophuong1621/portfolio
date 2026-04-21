@@ -39,15 +39,25 @@ function App() {
         className="mySwiper"
         speed={800}
       >
-        <SwiperSlide data-hash="hero"><Hero swiper={swiper} /></SwiperSlide>
-        <SwiperSlide data-hash="skills"><Skills /></SwiperSlide>
-        <SwiperSlide data-hash="experience"><Experience /></SwiperSlide>
-        <SwiperSlide data-hash="projects"><Projects /></SwiperSlide>
+        <SwiperSlide data-hash="hero">
+          {({ isActive }) => <Hero swiper={swiper} isActive={isActive} />}
+        </SwiperSlide>
+        <SwiperSlide data-hash="skills">
+          {({ isActive }) => <Skills isActive={isActive} />}
+        </SwiperSlide>
+        <SwiperSlide data-hash="experience">
+          {({ isActive }) => <Experience isActive={isActive} />}
+        </SwiperSlide>
+        <SwiperSlide data-hash="projects">
+          {({ isActive }) => <Projects isActive={isActive} />}
+        </SwiperSlide>
         <SwiperSlide data-hash="contact">
-          <div className="contact-footer-wrapper">
-            <Contact />
-            <Footer />
-          </div>
+          {({ isActive }) => (
+            <div className="contact-footer-wrapper">
+              <Contact isActive={isActive} />
+              <Footer />
+            </div>
+          )}
         </SwiperSlide>
       </Swiper>
     </>

@@ -3,7 +3,7 @@ import Typewriter from 'typewriter-effect';
 import { motion } from 'framer-motion';
 import Magnetic from './Animated/Magnetic';
 
-export default function Hero({ swiper }) {
+export default function Hero({ swiper, isActive }) {
   const handleContactClick = (e) => {
     e.preventDefault();
     if (swiper) swiper.slideTo(4); // slide 4 is Contact
@@ -14,19 +14,23 @@ export default function Hero({ swiper }) {
       <div className="hero-inner">
         <motion.div 
           className="hero-text"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate={isActive ? "visible" : "hidden"}
+          variants={{
+             hidden: { opacity: 0 },
+             visible: { opacity: 1, transition: { duration: 0.8 } }
+          }}
         >
           <div className="hero-badge">✦ Available for work</div>
           <div style={{ overflow: 'hidden', paddingBottom: '5px' }}>
             <motion.h1 
               className="hero-name"
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+              variants={{
+                hidden: { y: "100%", opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
+              }}
             >
-              Đỗ Thế<br/><span>Phương</span>
+              Đỗ Thế<br /><span>Phương</span>
             </motion.h1>
           </div>
           <div className="hero-role" style={{ minHeight: '30px' }}>
@@ -66,9 +70,12 @@ export default function Hero({ swiper }) {
         
         <motion.div 
           className="hero-avatar"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate={isActive ? "visible" : "hidden"}
+          variants={{
+             hidden: { opacity: 0, scale: 0.8 },
+             visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } }
+          }}
           whileHover={{ y: -10, boxShadow: "0 40px 90px rgba(168,85,247,0.3)" }}
         >
           <motion.div 

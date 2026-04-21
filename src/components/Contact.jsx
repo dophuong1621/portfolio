@@ -2,14 +2,17 @@ import { FaPhone, FaEnvelope, FaLinkedinIn, FaGithub, FaFacebookF } from 'react-
 import { motion } from 'framer-motion';
 import Magnetic from './Animated/Magnetic';
 
-export default function Contact() {
+export default function Contact({ isActive }) {
   return (
     <section id="contact">
       <motion.div 
         className="section-header"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+        variants={{
+          hidden: { opacity: 0, y: -20 },
+          visible: { opacity: 1, y: 0 }
+        }}
       >
         <p className="section-label">Kết nối</p>
         <h2 className="section-title">Liên Hệ Với Tôi</h2>
@@ -17,10 +20,12 @@ export default function Contact() {
       </motion.div>
       <motion.div 
         className="contact-inner"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+        variants={{
+          hidden: { opacity: 0, scale: 0.95 },
+          visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.2 } }
+        }}
       >
         <p style={{ color: 'var(--muted)', lineHeight: 1.8 }}>
           Bạn có dự án muốn hợp tác, hoặc đơn giản chỉ muốn xin chào? 

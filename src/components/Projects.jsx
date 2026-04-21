@@ -1,5 +1,6 @@
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import useDraggableScroll from '../hooks/useDraggableScroll';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,7 +21,9 @@ const cardVariants = {
   }
 };
 
-export default function Projects() {
+export default function Projects({ isActive }) {
+  const dragRef = useDraggableScroll();
+  
   const projects = [
     {
       icon: "💬",
@@ -51,10 +54,12 @@ export default function Projects() {
     <section id="projects">
       <motion.div 
         className="section-header"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+        variants={{
+          hidden: { opacity: 0, y: 30 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+        }}
       >
         <p className="section-label">Portfolio</p>
         <h2 className="section-title">Dự Án Nổi Bật</h2>
@@ -62,11 +67,11 @@ export default function Projects() {
       </motion.div>
       
       <motion.div 
-        className="projects-grid"
+        ref={dragRef}
+        className="projects-grid swiper-no-swiping"
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
-        viewport={{ once: true, amount: 0.1 }}
+        animate={isActive ? "visible" : "hidden"}
       >
         {projects.map((proj, idx) => (
           <motion.div 
