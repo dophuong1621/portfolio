@@ -1,4 +1,4 @@
-import{r as _a}from"./framer-BF7oBE7s.js";var Co={exports:{}},ve={},xo={exports:{}},_o={};/**
+import{r as _a}from"./framer-CvEhWXXX.js";var Co={exports:{}},ve={},xo={exports:{}},_o={};/**
  * @license React
  * scheduler.production.min.js
  *
