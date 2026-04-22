@@ -29,10 +29,10 @@ function App() {
       {isMobile ? (
         /* ── MOBILE: scroll thường, không load Swiper ── */
         <main className="mobile-scroll-layout">
-          <Hero      swiper={null} isActive={true} />
-          <Skills    isActive={true} />
-          <Experience isActive={true} />
-          <Projects  isActive={true} />
+          <Hero      swiper={null} isActive={true} isMobile={isMobile} />
+          <Skills    isActive={true} isMobile={isMobile} />
+          <Experience isActive={true} isMobile={isMobile} />
+          <Projects  isActive={true} isMobile={isMobile} />
           <div className="mobile-contact-footer">
             <Contact isActive={true} />
             <Footer />

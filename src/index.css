@@ -1,4 +1,4 @@
-﻿/* Google Fonts loaded via <link preload> in index.html â€” khÃ´ng dÃ¹ng @import Ä‘á»ƒ trÃ¡nh render-blocking */
+/* Google Fonts loaded via <link preload> in index.html â€” khÃ´ng dÃ¹ng @import Ä‘á»ƒ trÃ¡nh render-blocking */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -182,6 +182,8 @@ nav {
   border-radius: 52px;
   border: 1px solid rgba(129,140,248,.2);
   animation: pulse-ring 3s ease-in-out infinite;
+  /* GPU layer riêng → tránh repaint lên content */
+  will-change: opacity, transform;
 }
 @keyframes pulse-ring {
   0%, 100% { opacity: .3; transform: scale(1); }
@@ -259,6 +261,9 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Tăng tốc render các section off-screen */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 100vh;
 }
 
 .contact-footer-wrapper {
@@ -314,6 +319,16 @@ section {
   border: 1px solid rgba(79,70,229,.25);
   border-radius: 8px; font-size: .82rem; font-weight: 500;
   color: #a5b4fc; transition: all .2s;
+  /* Mặc định tàng hình để đợi hiệu ứng */
+  opacity: 0; 
+}
+.section-active .skill-tag {
+  /* CSS animation thay thế motion.span - nhẹ hơn rất nhiều */
+  animation: tag-fade-in 0.4s ease both;
+}
+@keyframes tag-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .skill-tag:hover {
   background: rgba(79,70,229,.25);
@@ -356,7 +371,7 @@ section {
   .skills-layout { flex-direction: column; }
 }
 
-/* â”€â”€â”€ EXPERIENCE GRID HORIZONTAL â”€â”€â”€ */
+/* ─── EXPERIENCE GRID HORIZONTAL ─── */
 .experience-grid {
   display: flex;
   overflow-x: auto;
@@ -370,23 +385,26 @@ section {
 
 
 .experience-card {
-  flex: 0 0 calc(33.333% - 1rem); /* 3 cá»™t trÃªn PC */
+  flex: 0 0 calc(33.333% - 1rem); /* 3 cột trên PC */
   min-width: 320px;
   background: var(--glass);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 2.2rem;
+  padding: 1.8rem;
   backdrop-filter: blur(12px);
-  transition: transform .3s, border-color .3s;
+  transition: transform .3s ease-out, border-color .3s ease-out, box-shadow .3s ease-out;
   text-align: left;
 }
-.experience-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(168,85,247,0.4);
+@media (hover: hover) and (pointer: fine) {
+  .experience-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(168,85,247,0.4);
+    box-shadow: 0 10px 30px rgba(168,85,247,0.1);
+  }
 }
-.experience-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; padding-left: 1.2rem; margin-top: 1rem; }
+.experience-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; padding-left: 1.2rem; margin-top: 0.8rem; }
 .experience-bullets li {
-  font-size: .9rem; color: var(--text); line-height: 1.6; font-weight: 500;
+  font-size: .88rem; color: var(--text); line-height: 1.5; font-weight: 500;
   position: relative;
 }
 .experience-bullets li::before {
@@ -395,7 +413,7 @@ section {
 .experience-bullets li b { color: #e879f9; }
 
 
-/* â”€â”€â”€ PROJECTS â”€â”€â”€ */
+/* ─── PROJECTS ─── */
 #projects { background: var(--bg-2); }
 .projects-grid {
   display: flex;
@@ -408,14 +426,15 @@ section {
   cursor: grab;
 }
 
-/* â”€â”€â”€ SCROLLABLE GRID WRAPPER (luÃ´n hiá»‡n thá»‹ indicator) â”€â”€â”€ */
+/* ─── SCROLLABLE GRID WRAPPER (luôn hiển thị indicator) ─── */
 .scrollable-grid-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding-bottom: 0.5rem;
 }
 
-/* áº¨n native scrollbar â€“ dÃ¹ng custom indicator thay tháº¿ */
+/* Ẩn native scrollbar – dùng custom indicator thay thế */
 .hide-native-scrollbar {
   scrollbar-width: none;        /* Firefox */
   -ms-overflow-style: none;     /* IE/Edge */
@@ -424,18 +443,18 @@ section {
   display: none;                /* Chrome/Safari */
 }
 
-/* Track luÃ´n hiá»‡n */
+/* Track luôn hiện */
 .scroll-track {
   position: relative;
   height: 6px;
-  margin: 0.6rem 1rem 0;
+  margin: 0.2rem 1rem 0;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 99px;
   cursor: pointer;
-  overflow: hidden; /* giá»¯ thumb trong track */
+  overflow: hidden; /* giữ thumb trong track */
 }
 
-/* Thumb di Ä‘á»™ng */
+/* Thumb di động */
 .scroll-thumb {
   position: absolute;
   top: 0;
@@ -443,8 +462,8 @@ section {
   background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
   border-radius: 99px;
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.55);
-  transition: left 0.08s linear, width 0.08s linear;
   pointer-events: none;
+  /* Đã loại bỏ transition để scroll thumb di chuyển real-time ngay khi vuốt chuột */
 }
 
 
@@ -453,16 +472,21 @@ section {
   min-width: 320px;
   background: var(--glass); border: 1px solid var(--border);
   border-radius: var(--radius); overflow: hidden;
-  backdrop-filter: blur(12px); transition: transform .3s, border-color .3s;
+  backdrop-filter: blur(12px);
   display: flex; flex-direction: column;
+  transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color .3s, box-shadow .3s;
 }
-.project-card:hover { transform: translateY(-6px); border-color: rgba(79,70,229,.4); }
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover { 
+    transform: translateY(-8px) rotateX(5deg) rotateY(-5deg); 
+    border-color: rgba(79,70,229,.4); 
+    box-shadow: 0 20px 40px rgba(168,85,247,0.15);
+  }
+}
 .project-img {
-  height: 140px;
+  height: 110px;
   background: linear-gradient(135deg, rgba(79,70,229,.2), rgba(168,85,247,.15));
   display: flex; align-items: center; justify-content: center;
-  font-size: 3rem; border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden;
 }
 .project-img::before {
   content: ''; position: absolute; inset: 0;
@@ -529,11 +553,25 @@ footer {
   position: relative; z-index: 1;
 }
 
-/* â”€â”€â”€ FADE IN ANIMATION â”€â”€â”€ */
+/* ─── FADE IN ANIMATION ─── */
 .fade-in { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* â”€â”€â”€ MOBILE â”€â”€â”€ */
+/* ─── CSS KEYFRAMES FOR CARDS ─── */
+.fade-up-item {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+.section-active .fade-up-item {
+  animation: slideUpKeyframe 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+@keyframes slideUpKeyframe {
+  0%   { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── MOBILE ─── */
 @media (max-width: 900px) {
   .hero-inner { flex-direction: column-reverse; gap: 2.5rem; text-align: center; }
   .hero-avatar { width: 210px; height: 280px; border-radius: 24px; }
@@ -676,15 +714,54 @@ footer {
   .chatbot-tab { cursor: pointer; }
 }
 
-/* â”€â”€â”€ MOBILE SCROLL FIX â”€â”€â”€ */
+/* ─── MOBILE SCROLL FIX ─── */
 @media (max-width: 900px) {
   section { padding: 4rem 5%; justify-content: flex-start; }
 }
 
+/* ══════════════════════════════════════════════════════
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Tắt các hiệu ứng GPU-heavy trên màn hình nhỏ
+═══════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* Blob: giảm blur từ 120px → 60px, giảm tải GPU đáng kể */
+  .blob { filter: blur(60px); opacity: 0.12; }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  /* Tắt backdrop-filter trên mobile — đây là tác nhân #1 gây slow paint */
+  .skill-group,
+  .experience-card,
+  .project-card,
+  .contact-card,
+  nav {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Tắt animation skill-tag trên màn hình nhỏ để tránh tranh bandwidth với LCP */
+  .skill-tag { animation: none; }
+
+  /* Avatar ring: tắt bớt opacity thấp hơn để GPU nhẹ hơn */
+  .avatar-ring { will-change: auto; animation-duration: 5s; }
+
+  /* content-visibility off trên mobile — scroll thường không cần */
+  section {
+    content-visibility: visible;
+    contain-intrinsic-size: none;
+  }
+}
+
+/* Prefers-reduced-motion: tắt tất cả animation không thiết yếu */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-ring { animation: none; }
+  .skill-tag { animation: none; }
+  .blob { animation: none; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+
+/* â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
    CHATBOT AI â€“ SIDE DRAWER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â•  */
 
 /* â”€â”€ Vertical Tab (gáº¯n mÃ©p pháº£i) â”€â”€ */
 .chatbot-tab {

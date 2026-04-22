@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { FaCode, FaLayerGroup, FaTools } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
+// Dùng CSS animation đơn giản thay vì motion.span để giảm JS overhead
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -9,18 +11,17 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
+export default function Skills({ isActive, isMobile }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const showAnim = isMobile ? isInView : isActive;
 
-export default function Skills({ isActive }) {
   return (
-    <section id="skills">
+    <section id="skills" ref={ref} className={showAnim ? 'section-active' : ''}>
       <motion.div 
         className="section-header"
         initial="hidden"
-        animate={isActive ? "visible" : "hidden"}
+        animate={showAnim ? "visible" : "hidden"}
         variants={{
           hidden: { opacity: 0, y: -20 },
           visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
@@ -35,13 +36,17 @@ export default function Skills({ isActive }) {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate={isActive ? "visible" : "hidden"}
+          animate={showAnim ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
           <div className="skill-group-title"><FaCode /> Ngôn ngữ lập trình</div>
           <div className="skill-tags">
-            {['PHP', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'SQL', 'Shell Script', 'Apps Script', 'Golang'].map(tag => (
-              <motion.span key={tag} variants={itemVariants} className="skill-tag">{tag}</motion.span>
+            {['PHP', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'SQL', 'Shell Script', 'Apps Script', 'Golang'].map((tag, i) => (
+              <span
+                key={tag}
+                className="skill-tag"
+                style={{ animationDelay: `${i * 0.07}s` }}
+              >{tag}</span>
             ))}
           </div>
         </motion.div>
@@ -49,13 +54,17 @@ export default function Skills({ isActive }) {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate={isActive ? "visible" : "hidden"}
+          animate={showAnim ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
-          <div className="skill-group-title"><FaLayerGroup /> Framework & Library</div>
+          <div className="skill-group-title"><FaLayerGroup /> Framework &amp; Library</div>
           <div className="skill-tags">
-            {['Laravel', 'CodeIgniter', 'Vue.js', 'React', 'Node.js', 'jQuery', 'Ajax', 'Tailwind CSS', 'WebSocket', 'WebRTC', 'REST API'].map(tag => (
-              <motion.span key={tag} variants={itemVariants} className="skill-tag">{tag}</motion.span>
+            {['Laravel', 'CodeIgniter', 'Vue.js', 'React', 'Node.js', 'jQuery', 'Ajax', 'Tailwind CSS', 'WebSocket', 'WebRTC', 'REST API'].map((tag, i) => (
+              <span
+                key={tag}
+                className="skill-tag"
+                style={{ animationDelay: `${i * 0.06}s` }}
+              >{tag}</span>
             ))}
           </div>
         </motion.div>
@@ -63,13 +72,17 @@ export default function Skills({ isActive }) {
           className="skill-group"
           variants={containerVariants}
           initial="hidden"
-          animate={isActive ? "visible" : "hidden"}
+          animate={showAnim ? "visible" : "hidden"}
           viewport={{ once: true }}
         >
-          <div className="skill-group-title"><FaTools /> Tools & Platform</div>
+          <div className="skill-group-title"><FaTools /> Tools &amp; Platform</div>
           <div className="skill-tags">
-            {['Git / GitHub', 'MySQL', 'Redis', 'Linux', 'Nginx', 'Postman', 'Figma', 'Playwright', 'Unit Test', 'Feature Test'].map(tag => (
-              <motion.span key={tag} variants={itemVariants} className="skill-tag">{tag}</motion.span>
+            {['Git / GitHub', 'MySQL', 'Redis', 'Linux', 'Nginx', 'Postman', 'Figma', 'Playwright', 'Unit Test', 'Feature Test'].map((tag, i) => (
+              <span
+                key={tag}
+                className="skill-tag"
+                style={{ animationDelay: `${i * 0.07}s` }}
+              >{tag}</span>
             ))}
           </div>
         </motion.div>

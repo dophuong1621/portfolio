@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-// Lazy-load tsparticles chỉ sau khi trang đã render xong
+// Lazy-load tsparticles chỉ sau khi trang đã render xong + LCP hoàn thành
 // Điều này giúp không block FCP/LCP trong lần load đầu tiên
 let particlesLoaded = false;
 let particlesEngine = null;
@@ -10,10 +10,14 @@ export default function ParticleBackground() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Detect mobile để giảm particle count
-    setIsMobile(window.innerWidth <= 768);
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
 
-    // Chỉ init sau khi window đã load xong (không block LCP)
+    // Tắt hoàn toàn nếu người dùng bật prefers-reduced-motion (accessibility + perf)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; // Chỉ hiện blobs tĩnh
+    }
+
     const initParticles = async () => {
       if (particlesLoaded) {
         setInit(true);
@@ -31,12 +35,14 @@ export default function ParticleBackground() {
       setInit(true);
     };
 
-    // Dùng requestIdleCallback nếu có, fallback về setTimeout
+    // Tăng timeout: đợi sau LCP (~2.9s) mới load particles
+    // requestIdleCallback timeout 4s → không bắt đầu cho đến khi browser rảnh VÀ sau LCP
     if ("requestIdleCallback" in window) {
-      const id = requestIdleCallback(initParticles, { timeout: 2000 });
+      const id = requestIdleCallback(initParticles, { timeout: 4000 });
       return () => cancelIdleCallback(id);
     } else {
-      const t = setTimeout(initParticles, 500);
+      // Fallback: 1.5s để LCP hoàn thành trước
+      const t = setTimeout(initParticles, 1500);
       return () => clearTimeout(t);
     }
   }, []);
@@ -66,7 +72,8 @@ function ParticlesCanvas({ isMobile }) {
 
   if (!Particles) return null;
 
-  const particleCount = isMobile ? 20 : 40; // giảm từ 50 xuống
+  // Mobile: ít hạt hơn nữa để tiết kiệm CPU/GPU
+  const particleCount = isMobile ? 15 : 35;
 
   return (
     <div
@@ -78,6 +85,9 @@ function ParticlesCanvas({ isMobile }) {
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
+        // GPU layer riêng → tránh composite lại với content
+        willChange: "transform",
+        transform: "translateZ(0)",
       }}
     >
       <Particles
@@ -85,26 +95,26 @@ function ParticlesCanvas({ isMobile }) {
         style={{ pointerEvents: isMobile ? "none" : "auto" }}
         options={{
           background: { color: { value: "transparent" } },
-          fpsLimit: isMobile ? 30 : 45, // giảm từ 60 xuống
+          fpsLimit: isMobile ? 25 : 40, // giảm từ 30/45 xuống
           interactivity: {
             events: {
               // Tắt hover/click trên mobile để tiết kiệm CPU
               onClick: { enable: !isMobile, mode: "push" },
               onHover: { enable: !isMobile, mode: "repulse" },
-              resize: true,
+              resize: { enable: true, delay: 0.5 }, // debounce resize
             },
             modes: {
               push: { quantity: 2 },
-              repulse: { distance: 80, duration: 0.4 }, // giảm distance
+              repulse: { distance: 80, duration: 0.4 },
             },
           },
           particles: {
             color: { value: "#818cf8" },
             links: {
               color: "#a855f7",
-              distance: 130, // giảm từ 150 xuống
+              distance: isMobile ? 100 : 130,
               enable: true,
-              opacity: 0.15, // giảm opacity
+              opacity: 0.12,
               width: 1,
             },
             move: {
@@ -112,14 +122,14 @@ function ParticlesCanvas({ isMobile }) {
               enable: true,
               outModes: { default: "bounce" },
               random: false,
-              speed: 0.8, // giảm từ 1 xuống
+              speed: isMobile ? 0.5 : 0.8,
               straight: false,
             },
             number: {
               density: { enable: true, area: 900 },
               value: particleCount,
             },
-            opacity: { value: 0.25 }, // giảm từ 0.3
+            opacity: { value: 0.2 },
             shape: { type: "circle" },
             size: { value: { min: 1, max: 2 } },
           },

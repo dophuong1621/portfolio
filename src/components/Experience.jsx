@@ -1,45 +1,24 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { useInView } from 'framer-motion';
 import ScrollableGrid from './ScrollableGrid';
 
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 }
-  }
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
-};
-
-export default function Experience({ isActive }) {
+export default function Experience({ isActive, isMobile }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const showAnim = isMobile ? isInView : isActive;
 
   return (
-    <section id="experience">
-      <motion.div 
-        className="section-header"
-        initial="hidden"
-        animate={isActive ? "visible" : "hidden"}
-        variants={{
-          hidden: { opacity: 0, scale: 0.9 },
-          visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-        }}
+    <section id="experience" ref={ref} className={showAnim ? 'section-active' : ''}>
+      <div 
+        className={`section-header fade-in ${showAnim ? 'visible' : ''}`}
       >
         <p className="section-label">Hành trình</p>
         <h2 className="section-title">Kinh Nghiệm Làm Việc</h2>
         <div className="section-line"></div>
-      </motion.div>
+      </div>
       
-      <ScrollableGrid
-        className="experience-grid swiper-no-swiping"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isActive ? "visible" : "hidden"}
-      >
-        <motion.div variants={cardVariants} className="experience-card">
+      <ScrollableGrid className="experience-grid swiper-no-swiping">
+        <div className="experience-card fade-up-item" style={{ animationDelay: '0.1s' }}>
           <div className="timeline-meta" style={{ marginBottom: '1.2rem', alignItems: 'flex-start' }}>
             <span className="timeline-period">02/2023 — 05/2026</span>
             <div className="timeline-role">Web Developer</div>
@@ -51,9 +30,9 @@ export default function Experience({ isActive }) {
             <li>Phát triển tính năng, tối ưu <b>backend</b> và hệ thống</li>
             <li>Quản trị hạ tầng, <b>cấu hình server</b> và điều phối tài nguyên</li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div variants={cardVariants} className="experience-card">
+        <div className="experience-card fade-up-item" style={{ animationDelay: '0.2s' }}>
           <div className="timeline-meta" style={{ marginBottom: '1.2rem', alignItems: 'flex-start' }}>
             <span className="timeline-period">10/2022 — 12/2022</span>
             <div className="timeline-role">Web Developer Intern</div>
@@ -65,9 +44,9 @@ export default function Experience({ isActive }) {
             <li>Làm việc trên hệ điều hành <b>Linux</b> trong môi trường thực tế</li>
             <li>Tìm hiểu quy trình phát triển <b>thương mại điện tử</b> doanh nghiệp</li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div variants={cardVariants} className="experience-card">
+        <div className="experience-card fade-up-item" style={{ animationDelay: '0.3s' }}>
           <div className="timeline-meta" style={{ marginBottom: '1.2rem', alignItems: 'flex-start' }}>
             <span className="timeline-period">03/2022 — 06/2022</span>
             <div className="timeline-role">Web Developer Intern</div>
@@ -79,7 +58,7 @@ export default function Experience({ isActive }) {
             <li>Làm quen với quy trình phát triển phần mềm thực tế</li>
             <li>Công nghệ: <b>PHP · HTML/CSS · JavaScript · MySQL</b></li>
           </ul>
-        </motion.div>
+        </div>
       </ScrollableGrid>
     </section>
   );

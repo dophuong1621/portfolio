@@ -1,13 +1,11 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
 import useDraggableScroll from '../hooks/useDraggableScroll';
 
 /**
  * Wrapper bao quanh grid scroll ngang.
  * Thanh indicator luôn hiển thị (không ẩn như native scrollbar).
- * Hỗ trợ framer-motion variants (truyền qua props).
  */
-export default function ScrollableGrid({ className = '', children, ...motionProps }) {
+export default function ScrollableGrid({ className = '', children, ...props }) {
   const dragRef = useDraggableScroll();
   const scrollRef = useRef(null);
   const [thumbStyle, setThumbStyle] = useState({ left: 0, width: 20 });
@@ -36,12 +34,21 @@ export default function ScrollableGrid({ className = '', children, ...motionProp
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    // Tính ngay sau mount (đợi layout xong)
-    const raf = requestAnimationFrame(updateThumb);
+
+    // Tính toán ban đầu
+    updateThumb();
+
+    // ResizeObserver giúp tính toán lại khi element thay đổi kích thước (ví dụ khi Swiper chuyển slide và hiện element lên)
+    const observer = new ResizeObserver(() => {
+      updateThumb();
+    });
+    observer.observe(el);
+
     el.addEventListener('scroll', updateThumb, { passive: true });
     window.addEventListener('resize', updateThumb);
+
     return () => {
-      cancelAnimationFrame(raf);
+      observer.disconnect();
       el.removeEventListener('scroll', updateThumb);
       window.removeEventListener('resize', updateThumb);
     };
@@ -61,14 +68,14 @@ export default function ScrollableGrid({ className = '', children, ...motionProp
 
   return (
     <div className="scrollable-grid-wrapper">
-      {/* Grid cards – dùng motion.div để hỗ trợ framer-motion variants */}
-      <motion.div
+      {/* Grid cards thuần túy – loại bỏ framer-motion để không gây lag khi cuộn ngang */}
+      <div
         ref={setRefs}
         className={`${className} hide-native-scrollbar`}
-        {...motionProps}
+        {...props}
       >
         {children}
-      </motion.div>
+      </div>
 
       {/* Thanh indicator luôn hiển thị */}
       <div className="scroll-track" onClick={handleTrackClick} role="scrollbar" aria-hidden="true">

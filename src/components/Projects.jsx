@@ -1,27 +1,12 @@
+import { useRef } from 'react';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import ScrollableGrid from './ScrollableGrid';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { type: 'spring', stiffness: 100, damping: 10 }
-  }
-};
-
-export default function Projects({ isActive }) {
+export default function Projects({ isActive, isMobile }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const showAnim = isMobile ? isInView : isActive;
 
   const projects = [
     {
@@ -72,34 +57,24 @@ export default function Projects({ isActive }) {
   ];
 
   return (
-    <section id="projects">
-      <motion.div 
-        className="section-header"
-        initial="hidden"
-        animate={isActive ? "visible" : "hidden"}
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-        }}
+    <section id="projects" ref={ref} className={showAnim ? 'section-active' : ''}>
+      <div 
+        className={`section-header fade-in ${showAnim ? 'visible' : ''}`}
       >
         <p className="section-label">Portfolio</p>
         <h2 className="section-title">Dự Án Nổi Bật</h2>
         <div className="section-line"></div>
-      </motion.div>
+      </div>
       
-      <ScrollableGrid
-        className="projects-grid swiper-no-swiping"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isActive ? "visible" : "hidden"}
-      >
+      <ScrollableGrid className="projects-grid swiper-no-swiping">
         {projects.map((proj, idx) => (
-          <motion.div 
+          <div 
             key={idx} 
-            className="project-card"
-            variants={cardVariants}
-            whileHover={{ y: -8, rotateX: 5, rotateY: -5, boxShadow: "0 20px 40px rgba(168,85,247,0.15)" }}
-            style={{ perspective: 1000 }}
+            className="project-card fade-up-item"
+            style={{ 
+              perspective: 1000, 
+              animationDelay: `${idx * 0.1}s` 
+            }}
           >
             <div className="project-img">{proj.icon}</div>
             <div className="project-body">
@@ -113,7 +88,7 @@ export default function Projects({ isActive }) {
                 {proj.demo && <a href={proj.demo} className="project-link"><FaExternalLinkAlt /> Live Demo</a>}
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </ScrollableGrid>
     </section>

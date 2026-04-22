@@ -1,9 +1,13 @@
-import { FaFileAlt, FaPaperPlane, FaUser } from 'react-icons/fa';
+import { FaFileAlt, FaPaperPlane } from 'react-icons/fa';
 import Typewriter from 'typewriter-effect';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Magnetic from './Animated/Magnetic';
+import useIsMobile from '../hooks/useIsMobile';
 
 export default function Hero({ swiper, isActive }) {
+  const isMobile = useIsMobile(900);
+  const shouldReduceMotion = useReducedMotion();
+
   const handleContactClick = (e) => {
     e.preventDefault();
     if (swiper) swiper.slideTo(4); // slide 4 is Contact
@@ -89,11 +93,8 @@ export default function Hero({ swiper, isActive }) {
           }}
           whileHover={{ y: -10, boxShadow: "0 40px 90px rgba(168,85,247,0.3)" }}
         >
-          <motion.div 
-            className="avatar-ring"
-            animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          ></motion.div>
+          {/* Dùng CSS animation thay framer-motion để tránh JS reflow */}
+          <div className="avatar-ring" />
           <picture>
             {/* Mobile ≤768px → ảnh nhỏ 22 KB (420px wide) */}
             <source
@@ -110,6 +111,7 @@ export default function Hero({ swiper, isActive }) {
               decoding="async"
               width="300"
               height="390"
+              style={{ willChange: 'auto' }}
             />
           </picture>
         </motion.div>
