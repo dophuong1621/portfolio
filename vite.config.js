@@ -13,12 +13,11 @@ export default defineConfig({
     cssCodeSplit: true,
     reportCompressedSize: false,
 
-    // Không preload particles/framer/swiper chunk — để thực sự lazy-load sau LCP
+    // Không preload particles/swiper chunk — để thực sự lazy-load sau LCP
     modulePreload: {
       resolveDependencies: (_url, deps) =>
         deps.filter(dep =>
           !dep.includes('particles') &&
-          !dep.includes('framer')    &&
           !dep.includes('swiper')
         ),
     },
@@ -32,8 +31,7 @@ export default defineConfig({
           if (!id.includes('node_modules')) return;
           // Particles → chunk riêng, lazy-loaded sau idle
           if (id.includes('@tsparticles') || id.includes('/tsparticles')) return 'vendor-particles';
-          // Framer → chunk riêng, lazy-loaded khi cần animation
-          if (id.includes('framer-motion')) return 'vendor-framer';
+          // Dỡ bỏ ép chunk 'vendor-framer' để Rollup kích hoạt thuật toán Tree-shaking độc lập, giúp loại bỏ 22KB code thừa mà Lighthouse cảnh báo. 
           // Swiper → chỉ load trên desktop
           if (id.includes('/swiper/')) return 'vendor-swiper';
           // React core → luôn cần
