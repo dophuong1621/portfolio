@@ -564,7 +564,7 @@ section {
 footer {
   text-align: center; padding: 2rem 8%;
   border-top: 1px solid var(--border);
-  font-size: .82rem; color: #4a4878;
+  font-size: .82rem; color: #94a3b8; /* Cải thiện độ tương phản (trước là #4a4878 quá tối so với nền đen) */
   position: relative; z-index: 1;
 }
 
@@ -970,6 +970,7 @@ footer {
   max-width: 82%;
   padding: 0.75rem 1rem;
   border-radius: 16px;
+  color: var(--text); /* Cần khai báo color đi kèm background để Lighthouse pass Accessibility */
 }
 .chatbot-msg--assistant .chatbot-msg-bubble {
   background: rgba(79, 70, 229, 0.1);
@@ -991,7 +992,7 @@ footer {
 .chatbot-msg-time {
   display: block;
   font-size: 0.65rem;
-  color: rgba(255,255,255,0.3);
+  color: #94a3b8; /* Tăng tương phản so với rgba(255,255,255,0.3) cũ */
   margin-top: 0.35rem;
   text-align: right;
 }
@@ -1089,7 +1090,7 @@ footer {
 /* â”€â”€ Footer note â”€â”€ */
 .chatbot-footer-note {
   font-size: 0.62rem;
-  color: rgba(255,255,255,0.16);
+  color: #94a3b8; /* Tăng tương phản, chuẩn WCAG AA */
   text-align: center;
   padding: 0.4rem;
   flex-shrink: 0;
