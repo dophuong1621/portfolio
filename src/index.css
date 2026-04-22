@@ -852,9 +852,8 @@ footer {
   display: flex;
   flex-direction: column;
 
-  background: rgba(8, 8, 20, 0.97);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  background: #0b0c1a; /* Đổi về dạng Solid color cực nhẹ */
+  /* Loại bỏ backdrop-filter blur(28px) vì nó ngốn GPU mỗi khi cuộn nội dung, gây tụt frame sâu trên máy yếu */
   border-left: 1px solid rgba(129, 140, 248, 0.18);
   box-shadow: -16px 0 60px rgba(0, 0, 0, 0.7), -1px 0 0 rgba(129, 140, 248, 0.08);
 
@@ -938,8 +937,11 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  scrollbar-width: none; /* áº¨n bá»›t trÃªn Firefox vÃ¬ 'thin' váº«n khÃ¡ to */
+  scrollbar-width: none; /* Ẩn bớt trên Firefox vì 'thin' vẫn khá to */
   min-height: 0;
+  /* Tối ưu hiệu năng Scroll trên Mobile */
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling cho iOS */
+  overscroll-behavior-y: contain; /* Ngăn cuộn nhầm ra màn hình nền */
 }
 .chatbot-messages::-webkit-scrollbar { width: 2px; }
 .chatbot-messages::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.5); border-radius: 99px; }
@@ -1098,12 +1100,17 @@ footer {
 
 /* â”€â”€ Mobile â‰¤900px: scroll layout, khÃ´ng cÃ³ Swiper/pagination â”€â”€ */
 @media (max-width: 900px) {
-  /* Drawer váº«n trÆ°á»£t tá»« pháº£i, thu háº¹p chiá»u rá»™ng */
+  /* Fix lỗi Safari/Chrome mobile tự phóng to màn hình khi chạm vào ô nhâp liệu (input zoom) */
+  .chatbot-input {
+    font-size: 16px !important;
+  }
+
+  /* Drawer váº«n trÆ°á»£t tá»« pháº£i, thu háº¹p chiá» u rá»™ng */
   .chatbot-drawer {
     width: min(92vw, 360px);
   }
 
-  /* Tab: Ä‘á»•i sang pill ngang gá»n hÆ¡n, váº«n á»Ÿ gÃ³c dÆ°á»›i pháº£i */
+  /* Tab: Ä‘á»•i sang pill ngang gá» n hÆ¡n, váº«n á»Ÿ gÃ³c dÆ°á»›i pháº£i */
   .chatbot-tab {
     bottom: 1.5rem;
     right: 0;

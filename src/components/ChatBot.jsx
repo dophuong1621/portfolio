@@ -6,7 +6,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 const KB = {
   name: 'Đỗ Thế Phương',
   alias: 'PhuongDT',
-  roles: ['Senior Business Analyst (BA)', 'Full-stack Software Developer'],
+  roles: ['PHP Developer', 'Full-stack Developer', 'Linux Server Admin', 'QA Automation Tester'],
   email: 'dtp1621@gmail.com',
   phone: '0522901602',
   zaloUrl: 'https://zalo.me/0522901602',
@@ -19,46 +19,46 @@ const KB = {
     {
       name: 'JiRim Chat System',
       icon: '💬',
-      tags: ['Laravel', 'Vue', 'WebRTC', 'WebSocket', 'Redis', 'Playwright', 'Pusher'],
-      desc: 'Hệ thống chat real-time đầy đủ: nhắn tin 1-1 & nhóm, gọi video P2P (WebRTC), emoji reactions, pin tin nhắn, presence tracking và E2E testing với Playwright.',
+      tags: ["Laravel", "Vue", "WebRTC", "WebSocket", "Redis", "Playwright", "Pusher"],
+      desc: 'Hệ thống chat real-time đầy đủ tính năng: nhắn tin 1-1 & nhóm, gọi video P2P (WebRTC), emoji reactions, pin tin nhắn, presence tracking và E2E testing.',
     },
     {
       name: 'Ritokey',
       icon: '🔑',
-      tags: ['Laravel', 'Tailwind CSS', 'jQuery', 'Ajax', 'MySQL', 'Pusher'],
-      desc: 'Nền tảng mua bán tài khoản và dịch vụ kỹ thuật số (YouTube, Cursor…). Giao dịch tự động, quản lý đơn hàng và kho hàng thông minh.',
+      tags: ["Laravel", "HTML/CSS", "Tailwind CSS", "jQuery", "Ajax", "MySQL", "Pusher"],
+      desc: 'Nền tảng mua bán tài khoản và dịch vụ kỹ thuật số (YouTube, Cursor, ...). Hỗ trợ giao dịch tự động, quản lý đơn hàng và hệ thống kho thông minh.',
       demo: 'https://ritokey.com',
     },
     {
       name: 'Hub HQ',
       icon: '🏠',
-      tags: ['Laravel', 'jQuery', 'Ajax', 'MySQL'],
-      desc: 'Hệ thống Hub tổng hợp kết nối và quản lý các dịch vụ nội bộ của HQ Group. Giao diện trung tâm điều hướng và vận hành các hệ thống con.',
+      tags: ["Laravel", "HTML/CSS", "jQuery", "Ajax", "MySQL"],
+      desc: 'Hệ thống Hub tổng hợp, kết nối và quản lý các dịch vụ nội bộ của HQ Group. Cung cấp giao diện trung tâm để điều hướng và vận hành các hệ thống con.',
     },
     {
       name: 'Kho tập trung – Kho thành viên',
       icon: '🏪',
-      tags: ['Laravel', 'MySQL', 'JavaScript', 'jQuery', 'Ajax'],
-      desc: 'Thương mại điện tử chuyên biệt cho tài khoản game và dịch vụ bổ trợ. Tập trung vào bảo mật, tốc độ giao dịch và quản lý kho thông minh.',
+      tags: ["Laravel", "MySQL", "HTML/CSS", "JavaScript", "jQuery", "Ajax"],
+      desc: 'Nền tảng thương mại điện tử chuyên cung cấp tài khoản game và dịch vụ số tự động. Tối ưu quy trình bảo mật, tốc độ giao dịch và quản lý kho thông minh.',
       demo: 'https://shoprito.com',
     },
     {
       name: 'HPay',
       icon: '💳',
-      tags: ['Laravel', 'MySQL', 'REST API', 'JavaScript', 'jQuery'],
-      desc: 'Hệ thống thanh toán nội bộ HQ Group: xử lý nạp/rút tiền và quản lý ví người dùng an toàn, tự động.',
+      tags: ["Laravel", "MySQL", "REST API", "JavaScript", "jQuery"],
+      desc: 'Hệ thống thanh toán nội bộ của HQ Group, xử lý giao dịch nạp tiền, rút tiền và quản lý ví người dùng một cách an toàn và tự động.',
     },
     {
       name: 'Báo cáo tài chính',
       icon: '📊',
-      tags: ['Laravel', 'MySQL', 'JavaScript', 'jQuery', 'Ajax'],
-      desc: 'Hệ thống báo cáo tài chính nội bộ: tổng hợp dữ liệu giao dịch, xuất báo cáo theo kỳ và trực quan hóa số liệu cho ban quản lý.',
+      tags: ["Laravel", "MySQL", "JavaScript", "jQuery", "Ajax"],
+      desc: 'Hệ thống báo cáo tài chính nội bộ, tổng hợp dữ liệu giao dịch, xuất báo cáo theo kỳ và trực quan hóa số liệu cho ban quản lý.',
     },
     {
       name: 'Raonhanh365',
       icon: '🛒',
-      tags: ['Laravel', 'MySQL', 'JavaScript', 'jQuery', 'Ajax'],
-      desc: 'Nền tảng rao vặt đa ngành (xe cộ, điện tử, đồ dùng cá nhân…). Hỗ trợ tìm kiếm, lọc nâng cao và chat trực tiếp giữa người mua & bán.',
+      tags: ["Laravel", "MySQL", "HTML/CSS", "JavaScript", "jQuery", "Ajax"],
+      desc: 'Nền tảng thương mại điện tử dạng rao vặt đa ngành hàng (xe cộ, đồ điện tử, đồ dùng cá nhân...). Hỗ trợ tìm kiếm, lọc, trò chuyện trực tiếp.',
       demo: 'https://raovat6s.com',
     },
   ],
@@ -107,12 +107,12 @@ function generateResponse(userInput) {
 
   // Greetings
   if (match('hello', 'hi', 'xin chào', 'chào', 'hey', 'alo')) {
-    return `👋 Xin chào! Tôi là trợ lý AI của **${KB.name}** – một Senior BA & Full-stack Developer.\n\nBạn muốn biết gì về Phương? Kỹ năng, dự án, hay muốn tải CV? Tôi sẵn sàng hỗ trợ! 😊`;
+    return `👋 Xin chào! Tôi là trợ lý AI của **${KB.name}** – một Full-stack Developer nhiệt huyết.\n\nBạn muốn biết gì về Phương? Kỹ năng, dự án, hay muốn xem CV? Tôi sẵn sàng hỗ trợ! 😊`;
   }
 
   // Who / Introduction
-  if (match('phương là ai', 'giới thiệu', 'who is', 'introduce', 'về phương', 'về anh ấy', 'about')) {
-    return `**${KB.name}** là một Senior BA & Full-stack Developer với điểm mạnh đặc biệt:\n\n• 🔍 **BA**: Phân tích nghiệp vụ, thiết kế luồng hệ thống\n• 💻 **Dev**: Lập trình từ backend đến frontend\n• 🖥️ **DevOps**: Cấu hình Nginx, bảo mật server\n\nPhương cover **toàn bộ vòng đời** của một dự án phần mềm!\n\n📄 Tải CV đầy đủ ở đầu trang nhé!`;
+  if (match('phương là ai', 'giới thiệu', 'who is', 'introduce', 'về phương', 'về anh ấy', 'about', 'thông tin cá nhân', 'cá nhân', 'bản thân')) {
+    return `**${KB.name}** là một Full-stack Developer với năng lực phát triển toàn diện:\n\n• 💻 **Dev**: Xây dựng Backend API & thiết kế Frontend UI/UX\n• 🖥️ **DevOps**: Cấu hình Nginx, Linux Server Admin\n• 🧪 **QA**: Tự động hóa kiểm thử phần mềm\n\nPhương cover **toàn bộ vòng đời** của một dự án web!\n\n📄 Bạn có thể bấm nút "Xem CV" ở màn hình đầu trang để biết thêm nha!`;
   }
 
   // Tech stack / Skills
@@ -156,7 +156,7 @@ function generateResponse(userInput) {
 
   // CV / Resume
   if (match('cv', 'resume', 'hồ sơ', 'tải', 'download')) {
-    return `📄 **Tải CV của Phương:**\n\nCV đầy đủ có sẵn ngay ở **đầu trang** (nút "Tải CV" trong phần Hero)!\n\nCV bao gồm:\n• Kinh nghiệm làm việc chi tiết\n• Tech stack & dự án nổi bật\n• Thông tin liên hệ\n\n⬆️ Cuộn lên đầu trang để tải nhé!`;
+    return `📄 **Xem CV của Phương:**\n\nBạn có thể nhấn nút **"Xem CV"** ngay tại phần giới thiệu ở đầu trang web nhé!\n\nCV bao gồm:\n• Kinh nghiệm làm việc chi tiết\n• Quá trình học tập & Kỹ năng\n• Các dự án nổi bật\n\n⬆️ Cuộn lên và bấm nút "Xem CV" nha!`;
   }
 
   // Salary / sensitive info
@@ -187,11 +187,11 @@ function generateResponse(userInput) {
 // QUICK PROMPTS
 // ─────────────────────────────────────────────
 const QUICK_PROMPTS = [
+  { label: '👋 Giới thiệu', value: 'Hãy giới thiệu thông tin cá nhân của Phương' },
   { label: '💼 Tech Stack', value: 'Kỹ năng và công nghệ của Phương là gì?' },
   { label: '🚀 Dự án', value: 'Kể tôi nghe về các dự án nổi bật' },
   { label: '🏢 Kinh nghiệm', value: 'Kinh nghiệm làm việc của Phương' },
   { label: '📤 Liên hệ', value: 'Làm sao để liên hệ với Phương?' },
-  // { label: '🏆 Vì sao chọn?', value: 'Tại sao nên tuyển dụng Phương?' },
 ];
 
 // ─────────────────────────────────────────────
