@@ -497,14 +497,26 @@ section {
 }
 .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
 .project-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
-.project-desc { font-size: .87rem; color: var(--muted); line-height: 1.7; flex: 1; }
-.project-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0; }
+.project-desc { 
+  font-size: .87rem; color: var(--muted); line-height: 1.7; 
+  min-height: 125px; margin-bottom: 1rem; 
+  display: -webkit-box; /* Bắt đầu quy tắc ép tối đa 5 dòng chữ */
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
 .project-tag {
   padding: .25rem .65rem; border-radius: 6px;
   background: rgba(168,85,247,.12); border: 1px solid rgba(168,85,247,.25);
   font-size: .75rem; font-weight: 600; color: #d8b4fe;
 }
-.project-links { display: flex; gap: .8rem; }
+.project-links { 
+  display: flex; gap: .8rem; 
+  min-height: 24px; 
+  margin-top: auto; /* Tự động đẩy xuống sát đáy đối với tất cả card */
+  padding-top: 1rem;
+}
 .project-link {
   display: flex; align-items: center; gap: .4rem;
   font-size: .82rem; color: var(--muted); text-decoration: none;

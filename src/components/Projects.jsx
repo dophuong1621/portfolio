@@ -31,7 +31,7 @@ export default function Projects({ isActive, isMobile }) {
     {
       icon: "🏪",
       name: "Kho tập trung – Kho thành viên",
-      desc: "Nền tảng thương mại điện tử chuyên biệt cho phép người dùng tìm kiếm, mua sắm tài khoản game và các dịch vụ bổ trợ một cách tự động. Tập trung vào bảo mật, tốc độ giao dịch và quản lý kho hàng thông minh.",
+      desc: "Nền tảng thương mại điện tử chuyên cung cấp tài khoản game và dịch vụ số tự động. Tối ưu quy trình bảo mật, tốc độ giao dịch và quản lý kho thông minh.",
       tags: ["Laravel", "MySQL", "HTML/CSS", "JavaScript", "jQuery", "Ajax"],
       demo: 'https://shoprito.com',
     },
