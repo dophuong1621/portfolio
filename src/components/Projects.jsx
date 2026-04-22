@@ -29,7 +29,6 @@ export default function Projects({ isActive }) {
       name: "JiRim Chat System",
       desc: "Hệ thống chat real-time đầy đủ tính năng: nhắn tin 1-1 & nhóm, gọi video P2P (WebRTC), emoji reactions, pin tin nhắn, presence tracking và E2E testing với Playwright.",
       tags: ["Laravel", "Vue", "WebRTC", "WebSocket", "Redis", "Playwright", "Pusher"],
-      source: "https://github.com/dophuong1621/chat-system",
     },
     {
       icon: "🔑",
@@ -49,6 +48,7 @@ export default function Projects({ isActive }) {
       name: "Kho tập trung – Kho thành viên",
       desc: "Nền tảng thương mại điện tử chuyên biệt cho phép người dùng tìm kiếm, mua sắm tài khoản game và các dịch vụ bổ trợ một cách tự động. Tập trung vào bảo mật, tốc độ giao dịch và quản lý kho hàng thông minh.",
       tags: ["Laravel", "MySQL", "HTML/CSS", "JavaScript", "jQuery", "Ajax"],
+      demo: 'https://shoprito.com',
     },
     {
       icon: "💳",

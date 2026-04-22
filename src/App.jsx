@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import ParticleBackground from './components/Animated/ParticleBackground';
+import ChatBot from './components/ChatBot';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Pagination, HashNavigation } from 'swiper/modules';
 import useIsMobile from './hooks/useIsMobile';
@@ -17,12 +18,13 @@ import { useState } from 'react';
 
 function App() {
   const [swiper, setSwiper] = useState(null);
-  const isMobile = useIsMobile(480); // <= 480px → bỏ slide
+  const isMobile = useIsMobile(768); // <= 768px → bỏ slide
 
   return (
     <>
       <CustomCursor />
       <ParticleBackground />
+      <ChatBot />
 
       <Navbar swiper={isMobile ? null : swiper} isMobile={isMobile} />
 
