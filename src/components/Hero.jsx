@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { FaFileAlt, FaPaperPlane, FaCode } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaFileAlt, FaPaperPlane } from 'react-icons/fa';
 import Typewriter from 'typewriter-effect';
 import { motion, useReducedMotion } from 'framer-motion';
 import Magnetic from './Animated/Magnetic';
@@ -8,6 +8,14 @@ import useIsMobile from '../hooks/useIsMobile';
 export default function Hero({ swiper, isActive }) {
   const isMobile = useIsMobile(900);
   const shouldReduceMotion = useReducedMotion();
+
+  // Fix G: Defer Typewriter — không chạy animation trong lúc LCP image đang load
+  const [showTypewriter, setShowTypewriter] = useState(false);
+  useEffect(() => {
+    // 600ms: đủ để LCP image đã decode xong trước khi Typewriter chiếm main thread
+    const t = setTimeout(() => setShowTypewriter(true), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleContactClick = (e) => {
     e.preventDefault();
@@ -53,44 +61,61 @@ export default function Hero({ swiper, isActive }) {
             </motion.h1>
           </div>
           <div className="hero-role" style={{ minHeight: '30px' }}>
-              <Typewriter
-                options={{
-                  strings: ['Full-Stack Developer', 'System Architecture', 'UI/UX Enthusiast'],
-                  autoStart: true,
-                  loop: true,
-                  delay: 40,
-                  deleteSpeed: 20,
-                }}
-              />
+              {showTypewriter ? (
+                <Typewriter
+                  options={{
+                    strings: ['Full-Stack Developer', 'System Architecture', 'UI/UX Enthusiast'],
+                    autoStart: true,
+                    loop: true,
+                    delay: 40,
+                    deleteSpeed: 20,
+                  }}
+                />
+              ) : (
+                // Placeholder giữ chỗ để không có CLS
+                <span style={{ color: 'var(--muted)', fontWeight: 600 }}>Full-Stack Developer</span>
+              )}
             </div>
             <p className="hero-desc">
               Là một Full Stack Developer đam mê công nghệ, tôi có thế mạnh trong việc thiết kế kiến trúc hệ thống linh hoạt và tối ưu hóa trải nghiệm người dùng. Mục tiêu của tôi là xây dựng các nền tảng chất lượng cao, hiệu năng vượt trội với hệ sinh thái đa dạng (Laravel, Vue 3, Tailwind, jQuery...) nhằm giải quyết các bài toán khó của doanh nghiệp.
             </p>
           <div className="hero-btns" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Magnetic>
-              <motion.a 
-                whileHover={!isDownloading ? { scale: 1.05 } : {}} 
-                whileTap={!isDownloading ? { scale: 0.95 } : {}} 
-                href={`${import.meta.env.BASE_URL}CV.pdf`} 
+            {/* Fix E: Magnetic chỉ trên desktop — mobile không có chuột */}
+            {isMobile ? (
+              <a
+                href={`${import.meta.env.BASE_URL}CV.pdf`}
                 download
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`btn-primary ${isDownloading ? 'loading-btn' : ''}`}
                 onClick={handleDownloadCV}
+                style={{ opacity: isDownloading ? 0.7 : 1 }}
+              >
+                {isDownloading ? <>⏳ Đang chuẩn bị...</> : <><FaFileAlt /> Tải CV (PDF)</>}
+              </a>
+            ) : (
+              // Desktop: dùng dynamic import để tránh đưa Magnetic vào initial parse
+              <motion.a
+                whileHover={!isDownloading ? { scale: 1.05 } : {}}
+                whileTap={!isDownloading ? { scale: 0.95 } : {}}
+                href={`${import.meta.env.BASE_URL}CV.pdf`}
+                download target="_blank" rel="noopener noreferrer"
+                className={`btn-primary ${isDownloading ? 'loading-btn' : ''}`}
+                onClick={handleDownloadCV}
                 style={{ opacity: isDownloading ? 0.7 : 1, cursor: isDownloading ? 'wait' : 'pointer' }}
               >
-                {isDownloading ? (
-                  <>⏳ Đang chuẩn bị...</>
-                ) : (
-                  <><FaFileAlt /> Tải CV (PDF)</>
-                )}
+                {isDownloading ? <>⏳ Đang chuẩn bị...</> : <><FaFileAlt /> Tải CV (PDF)</>}
               </motion.a>
-            </Magnetic>
-            <Magnetic>
+            )}
+            {isMobile ? (
+              <a href="#contact" onClick={handleContactClick} className="btn-outline">
+                <FaPaperPlane /> Liên hệ ngay
+              </a>
+            ) : (
               <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#contact" onClick={handleContactClick} className="btn-outline">
                 <FaPaperPlane /> Liên hệ ngay
               </motion.a>
-            </Magnetic>
+            )}
           </div>
           <div className="stat-chips">
             <div

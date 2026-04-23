@@ -5,6 +5,20 @@ import { useEffect, useState } from "react";
 let particlesLoaded = false;
 let particlesEngine = null;
 
+// Phát hiện LCP đã hoàn thành chưa
+let lcpDoneGlobal = false;
+if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
+  try {
+    const po = new PerformanceObserver((list) => {
+      if (list.getEntries().length > 0) {
+        lcpDoneGlobal = true;
+        po.disconnect();
+      }
+    });
+    po.observe({ type: 'largest-contentful-paint', buffered: true });
+  } catch (e) { lcpDoneGlobal = true; } // Fallback nếu browser không hỗ trợ
+}
+
 export default function ParticleBackground() {
   const [init, setInit] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -85,8 +99,8 @@ function ParticlesCanvas({ isMobile }) {
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none",
-        // GPU layer riêng → tránh composite lại với content
-        willChange: "transform",
+        // Fix D: chỉ promote GPU layer sau LCP — tránh cạnh tranh với LCP image render
+        willChange: lcpDoneGlobal ? "transform" : "auto",
         transform: "translateZ(0)",
       }}
     >

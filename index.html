@@ -50,13 +50,16 @@
     <!-- ─── Google Fonts: preconnect để giảm latency, preload để không block render ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fix C: Hợp nhất Outfit vào cùng URL — 1 request thay vì 2 -->
     <link rel="preload" as="style"
-          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@600;700&display=swap"
           onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
       <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" />
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@600;700&display=swap" />
     </noscript>
+    <!-- Fix H: dns-prefetch giảm TTFB khi browser resolve GitHub Pages domain -->
+    <link rel="dns-prefetch" href="https://dophuong1621.github.io" />
 
     <!-- ─── Preload LCP image (avatar) — mobile nhận ảnh nhỏ hơn ─── -->
     <link rel="preload" as="image" href="/avatar-mobile.jpg" fetchpriority="high" media="(max-width: 768px)" />

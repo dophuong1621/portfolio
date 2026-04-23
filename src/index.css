@@ -773,6 +773,11 @@ footer {
   * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 
+/* ─── SKELETON SPINNER (dùng trong Suspense fallback) ─── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 
 /* â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
    CHATBOT AI â€“ SIDE DRAWER

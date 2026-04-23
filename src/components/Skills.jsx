@@ -2,13 +2,18 @@ import { useRef } from 'react';
 import { FaCode, FaLayerGroup, FaTools } from 'react-icons/fa';
 import { motion, useInView } from 'framer-motion';
 
-// Dùng CSS animation đơn giản thay vì motion.span để giảm JS overhead
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
+// Hiệu ứng cho từng card: slide up + fade in
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
     opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.33, 1, 0.68, 1],
+      delay: i * 0.15, // card 0→0s, card 1→0.15s, card 2→0.30s
+    }
+  })
 };
 
 export default function Skills({ isActive, isMobile }) {
@@ -16,9 +21,30 @@ export default function Skills({ isActive, isMobile }) {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const showAnim = isMobile ? isInView : isActive;
 
+  const groups = [
+    {
+      icon: <FaCode />,
+      title: 'Core Stack (Chuyên sâu)',
+      tags: ['PHP', 'Laravel', 'UX/UI', 'MySQL', 'Redis', 'Nginx', 'REST API'],
+      delay: 0.07,
+    },
+    {
+      icon: <FaLayerGroup />,
+      title: 'System Architecture & Testing',
+      tags: ['System Design', 'API Specs', 'Performance Optimization', 'Playwright', 'Unit Test'],
+      delay: 0.06,
+    },
+    {
+      icon: <FaTools />,
+      title: 'DevOps & Exploring',
+      tags: ['Linux Server', 'CI/CD Pipelines', 'Docker', 'Git / GitHub', 'WebRTC', 'Golang', 'React', 'Figma', 'WebSocket'],
+      delay: 0.07,
+    },
+  ];
+
   return (
     <section id="skills" ref={ref} className={showAnim ? 'section-active' : ''}>
-      <motion.div 
+      <motion.div
         className="section-header"
         initial="hidden"
         animate={showAnim ? "visible" : "hidden"}
@@ -31,62 +57,36 @@ export default function Skills({ isActive, isMobile }) {
         <h2 className="section-title">Kỹ Năng Chuyên Môn</h2>
         <div className="section-line"></div>
       </motion.div>
+
       <div className="skills-grid">
-        <motion.div 
-          className="skill-group"
-          variants={containerVariants}
-          initial="hidden"
-          animate={showAnim ? "visible" : "hidden"}
-          viewport={{ once: true }}
-        >
-          <div className="skill-group-title"><FaCode /> Core Stack (Chuyên sâu)</div>
-          <div className="skill-tags">
-            {['PHP', 'Laravel', 'UX/UI', 'MySQL', 'Redis', 'Nginx', 'REST API'].map((tag, i) => (
-              <span
-                key={tag}
-                className="skill-tag"
-                style={{ animationDelay: `${i * 0.07}s` }}
-              >{tag}</span>
-            ))}
-          </div>
-        </motion.div>
-        <motion.div 
-          className="skill-group"
-          variants={containerVariants}
-          initial="hidden"
-          animate={showAnim ? "visible" : "hidden"}
-          viewport={{ once: true }}
-        >
-          <div className="skill-group-title"><FaLayerGroup /> System Architecture &amp; Testing</div>
-          <div className="skill-tags">
-            {['System Design', 'API Specs', 'Performance Optimization', 'Playwright', 'Unit Test'].map((tag, i) => (
-              <span
-                key={tag}
-                className="skill-tag"
-                style={{ animationDelay: `${i * 0.06}s` }}
-              >{tag}</span>
-            ))}
-          </div>
-        </motion.div>
-        <motion.div 
-          className="skill-group"
-          variants={containerVariants}
-          initial="hidden"
-          animate={showAnim ? "visible" : "hidden"}
-          viewport={{ once: true }}
-        >
-          <div className="skill-group-title"><FaTools /> DevOps &amp; Exploring</div>
-          <div className="skill-tags">
-            {['Linux Server', 'CI/CD Pipelines', 'Docker', 'Git / GitHub', 'WebRTC', 'Golang', 'React', 'Figma', 'WebSocket'].map((tag, i) => (
-              <span
-                key={tag}
-                className="skill-tag"
-                style={{ animationDelay: `${i * 0.07}s` }}
-              >{tag}</span>
-            ))}
-          </div>
-        </motion.div>
+        {groups.map((group, i) => (
+          <motion.div
+            key={group.title}
+            className="skill-group"
+            custom={i}
+            variants={cardVariants}
+            initial="hidden"
+            animate={showAnim ? "visible" : "hidden"}
+          >
+            <div className="skill-group-title">
+              {group.icon} {group.title}
+            </div>
+            <div className="skill-tags">
+              {group.tags.map((tag, j) => (
+                <span
+                  key={tag}
+                  className="skill-tag"
+                  style={{ animationDelay: `${i * 0.15 + j * group.delay}s` }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
 }
+
+
