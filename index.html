@@ -50,21 +50,25 @@
     <!-- ─── Google Fonts: preconnect để giảm latency, preload để không block render ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fix C: Hợp nhất Outfit vào cùng URL — 1 request thay vì 2 -->
     <link rel="preload" as="style"
-          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@600;700&display=swap"
           onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
       <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" />
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@600;700&display=swap" />
     </noscript>
+    <!-- Fix H: dns-prefetch giảm TTFB khi browser resolve GitHub Pages domain -->
+    <link rel="dns-prefetch" href="https://dophuong1621.github.io" />
 
     <!-- ─── Preload LCP image (avatar) — mobile nhận ảnh nhỏ hơn ─── -->
     <link rel="preload" as="image" href="/portfolio/avatar-mobile.jpg" fetchpriority="high" media="(max-width: 768px)" />
     <link rel="preload" as="image" href="/portfolio/avatar.jpg" fetchpriority="high" media="(min-width: 769px)" />
-    <script type="module" crossorigin src="/portfolio/assets/index-DX3UFleg.js"></script>
+    <script type="module" crossorigin src="/portfolio/assets/index-DvX3sFax.js"></script>
     <link rel="modulepreload" crossorigin href="/portfolio/assets/vendor-react-CoeMXAFd.js">
-    <link rel="modulepreload" crossorigin href="/portfolio/assets/vendor-misc-DwPy4HyZ.js">
-    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-BudtgG8P.css">
+    <link rel="modulepreload" crossorigin href="/portfolio/assets/vendor-framer-DiTabcqt.js">
+    <link rel="modulepreload" crossorigin href="/portfolio/assets/vendor-misc-lp9wJq_d.js">
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-Uq1nUFT6.css">
   </head>
   <body>
     <div id="root"></div>
