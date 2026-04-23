@@ -25,6 +25,13 @@ const projects = [
     demo: 'https://ritokey.com',
   },
   {
+    icon: '🏪',
+    name: 'Kho tập trung – Kho thành viên',
+    desc: 'Nền tảng thương mại điện tử chuyên cung cấp tài khoản game và dịch vụ số tự động. Tối ưu quy trình bảo mật, tốc độ giao dịch và quản lý kho thông minh.',
+    tags: ['Laravel', 'MySQL', 'HTML/CSS', 'JavaScript', 'jQuery', 'Ajax'],
+    demo: 'https://shoprito.com',
+  },
+  {
     icon: '💬',
     name: 'JiRim Chat System',
     desc: 'Hệ thống chat real-time đầy đủ tính năng: nhắn tin 1-1 & nhóm, gọi video P2P (WebRTC), emoji reactions, pin tin nhắn, presence tracking và E2E testing với Playwright.',
@@ -35,13 +42,6 @@ const projects = [
     name: 'Hub HQ',
     desc: 'Hệ thống Hub tổng hợp, kết nối và quản lý các dịch vụ nội bộ của HQ Group. Cung cấp giao diện trung tâm để điều hướng và vận hành các hệ thống con.',
     tags: ['Laravel', 'HTML/CSS', 'jQuery', 'Ajax', 'MySQL'],
-  },
-  {
-    icon: '🏪',
-    name: 'Kho tập trung – Kho thành viên',
-    desc: 'Nền tảng thương mại điện tử chuyên cung cấp tài khoản game và dịch vụ số tự động. Tối ưu quy trình bảo mật, tốc độ giao dịch và quản lý kho thông minh.',
-    tags: ['Laravel', 'MySQL', 'HTML/CSS', 'JavaScript', 'jQuery', 'Ajax'],
-    demo: 'https://shoprito.com',
   },
   {
     icon: '💳',
