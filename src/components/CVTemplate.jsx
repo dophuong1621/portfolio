@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { userInfo, education, experiences, projects, skills } from '../data/cvData';
+import { userInfo, education, experiences, projects, skills, activities } from '../data/cvData';
 
 // ─── Design tokens khớp với Portfolio ──────────────────────────────────────────
 const C = {
@@ -341,6 +341,30 @@ const CVTemplate = forwardRef((_props, ref) => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ── EXTRACURRICULAR ── */}
+        <div style={{ marginTop: 20 }}>
+          <SectionTitle>Hoạt động ngoại khoá</SectionTitle>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            {activities.map((act, i) => (
+              <div key={i} style={{
+                background:   'rgba(255,255,255,0.035)',
+                border:       `1px solid ${C.border}`,
+                borderRadius: 8,
+                padding:      '8px 10px',
+                display:      'flex',
+                alignItems:   'flex-start',
+                gap:          8,
+              }}>
+                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>{act.icon}</span>
+                <div>
+                  <div style={{ fontSize: 10.5, fontWeight: 700, color: C.indigo, marginBottom: 2 }}>{act.name}</div>
+                  <div style={{ fontSize: 9.5, color: C.muted, lineHeight: 1.45 }}>{act.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

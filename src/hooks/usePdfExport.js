@@ -97,6 +97,10 @@ export function usePdfExport(cvRef, isOpen) {
       while (pageTop < totalHeightMm - 2) {
         if (pageNum > 0) pdf.addPage();
 
+        // ── Tô nền tối trước để phần rỗng cuối trang không bị trắng ──
+        pdf.setFillColor(8, 8, 18);   // #080812
+        pdf.rect(0, 0, pdfW, pdfH, 'F');
+
         const srcYPx = (pageTop / totalHeightMm) * canvas.height;
         const srcHPx = Math.min(
           (pdfH / totalHeightMm) * canvas.height,
@@ -106,10 +110,13 @@ export function usePdfExport(cvRef, isOpen) {
         const slice = document.createElement('canvas');
         slice.width  = canvas.width;
         slice.height = srcHPx;
-        slice.getContext('2d').drawImage(canvas, 0, -srcYPx);
+        const ctx = slice.getContext('2d');
+        ctx.fillStyle = '#080812';
+        ctx.fillRect(0, 0, slice.width, slice.height);
+        ctx.drawImage(canvas, 0, -srcYPx);
 
         const sliceHMm = (srcHPx / canvas.height) * totalHeightMm;
-        pdf.addImage(slice.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, pdfW, sliceHMm);
+        pdf.addImage(slice.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pdfW, sliceHMm);
 
         pageTop += pdfH;
         pageNum++;

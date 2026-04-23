@@ -121,6 +121,34 @@ export default function Navbar({ swiper, isMobile }) {
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
+            {/* Nút X đóng drawer */}
+            <button
+              onClick={() => setIsOpen(false)}
+              aria-label="Đóng menu"
+              style={{
+                position:       'absolute',
+                top:            16,
+                right:          18,
+                width:          34,
+                height:         34,
+                display:        'flex',
+                alignItems:     'center',
+                justifyContent: 'center',
+                background:     'rgba(255,255,255,0.07)',
+                border:         '1px solid rgba(255,255,255,0.1)',
+                borderRadius:   '50%',
+                color:          '#f1f0ff',
+                cursor:         'pointer',
+                fontSize:       16,
+                transition:     'background 0.18s',
+                zIndex:         1,
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(168,85,247,0.3)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.07)'}
+            >
+              ✕
+            </button>
+
             <ul className="drawer-links">
               {navItems.map(({ label, index }, i) => (
                 <motion.li

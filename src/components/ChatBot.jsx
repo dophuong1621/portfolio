@@ -66,6 +66,7 @@ const KB = {
     photography: 'Đam mê nhiếp ảnh điện ảnh (Cinematic), chụp chân dung với EOS R5 + 85mm f/1.4.',
     football: 'Đam mê bóng đá, từng ghi 5 bàn + 3 kiến tạo trong một trận.',
     ai: 'Yêu thích AI sáng tạo – tạo hình ảnh, sáng tác âm nhạc với công nghệ AI.',
+    sports: 'Tích cực tham gia hoạt động ngoại khoá: chạy bộ (top finisher nội bộ), bóng đá, pickleball (giải nhất đôi nam nội bộ công ty), cầu lông.',
   },
   cvLink: 'https://dophuong1621.github.io/portfolio/#hero',
   experience: [
@@ -164,14 +165,14 @@ function generateResponse(userInput) {
     return `ℹ️ Về thông tin này, bạn có thể **trao đổi trực tiếp với anh Phương** nhé!\n\n📧 **Email:** [${KB.email}](mailto:${KB.email})\n💬 **Zalo:** [${KB.phone}](${KB.zaloUrl})`;
   }
 
-  // Hobbies / Personality
-  if (match('sở thích', 'hobby', 'hobbies', 'ngoài công việc', 'outside work', 'nhiếp ảnh', 'photo', 'bóng đá', 'football', 'ai', 'sáng tạo')) {
-    return `🌟 **Ngoài công việc, Phương:**\n\n📸 **Nhiếp ảnh điện ảnh** – Chụp chân dung cinematic với Canon EOS R5 + 85mm f/1.4\n⚽ **Bóng đá** – Từng ghi 5 bàn + 3 kiến tạo trong 1 trận\n🤖 **AI sáng tạo** – Đam mê tạo hình ảnh & âm nhạc bằng AI\n\nPhương là người đa tài và sáng tạo cả trong lẫn ngoài công việc! 😄`;
+  // Hobbies / Personality / Extracurricular
+  if (match('sở thích', 'hobby', 'hobbies', 'ngoài công việc', 'outside work', 'nhiếp ảnh', 'photo', 'bóng đá', 'football', 'ai', 'sáng tạo', 'ngoại khoá', 'ngoai khoa', 'extracurricular', 'thể thao', 'sport', 'pickleball', 'cầu lông', 'badminton', 'chạy bộ', 'running', 'hoạt động')) {
+    return `🌟 **Ngoài công việc, Phương:**\n\n🏃 **Hoạt động ngoại khoá công ty**\n• **Chạy bộ** – Tham gia đầy đủ các giải nội bộ, thành tích top finisher\n• **Bóng đá** – Vô địch giải phong trào toàn công ty\n• **Pickleball** – 🏆 Giải nhất đôi nam giải nội bộ công ty\n• **Cầu lông** – Chơi thường xuyên, tham gia sân ngoại khoá\n\n🤖 **AI sáng tạo** – Đam mê tạo hình ảnh & âm nhạc bằng AI\n\nPhương là người năng động, hoà đồng và gắn kết tốt với văn hoá công ty! 😄`;
   }
 
   // System Architecture
   if (match('system design', 'thiết kế hệ thống', 'kiến trúc', 'architecture', 'hiệu năng', 'performance', 'metric', 'con số')) {
-    return `📊 **System Architecture & Performance:**\n\nPhương thiết kế hệ thống tập trung vào hiệu năng và khả năng mở rộng:\n• **Tối ưu tự động hóa:** Giảm 85% thời gian xử lý đơn (Dự án Ritokey).\n• **Tối ưu tài nguyên:** Giảm 70% băng thông server nhờ kiến trúc WebRTC (Dự án JiRim).\n• **Thiết kế luồng dữ liệu:** Xây dựng ERD, Sequence Diagram, API Specs rõ ràng để scale hệ thống an toàn.\n\nSự kết hợp giữa code tốt và thiết kế chuẩn giúp hệ thống luôn ổn định!`;
+    return `📊 **System Architecture & Performance:**\n\nPhương thiết kế hệ thống tập trung vào hiệu năng và khả năng mở rộng:\n• **Tối ưu tự động hóa:** Giảm 85% thời gian xử lý đơn (Dự án Ritokey).\n• **Tối ưu tài nguyên:** Giảm 70% băng thông server nhờ kiến trúc WebRTC (Dự án Chat System).\n• **Thiết kế luồng dữ liệu:** Xây dựng ERD, Sequence Diagram, API Specs rõ ràng để scale hệ thống an toàn.\n\nSự kết hợp giữa code tốt và thiết kế chuẩn giúp hệ thống luôn ổn định!`;
   }
 
   // Why hire
@@ -191,6 +192,7 @@ const QUICK_PROMPTS = [
   { label: '💼 Tech Stack', value: 'Kỹ năng và công nghệ của Phương là gì?' },
   { label: '🚀 Dự án', value: 'Kể tôi nghe về các dự án nổi bật' },
   { label: '🏢 Kinh nghiệm', value: 'Kinh nghiệm làm việc của Phương' },
+  { label: '🏃 Ngoại khoá', value: 'Phương có tham gia hoạt động ngoại khoá nào không?' },
   { label: '📤 Liên hệ', value: 'Làm sao để liên hệ với Phương?' },
 ];
 

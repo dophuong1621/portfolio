@@ -117,3 +117,11 @@ export const skills = {
   architecture: ['System Design', 'API Specs', 'Performance Optimization', 'Playwright', 'Unit Test'],
   devops: ['Linux Server', 'CI/CD', 'Docker', 'Git / GitHub', 'WebRTC', 'Vue 3', 'React', 'WebSocket'],
 };
+
+export const activities = [
+  { icon: '🏃', name: 'Chạy bộ',    desc: 'Tham gia đầy đủ các giải nội bộ, thành tích top finisher' },
+  { icon: '⚽', name: 'Bóng đá',    desc: 'Vô địch giải phong trào toàn công ty' },
+  { icon: '🏸', name: 'Pickleball', desc: '🏆 Vô địch đôi nam – Giải Ngày Hội HQ' },
+  { icon: '🏸', name: 'Cầu lông',   desc: 'Chơi thường xuyên, tham gia sân ngoại khoá' },
+  { icon: '🤖', name: 'AI sáng tạo',desc: 'Tạo hình ảnh & âm nhạc bằng công nghệ AI' },
+];
