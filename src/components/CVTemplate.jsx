@@ -278,6 +278,30 @@ const CVTemplate = forwardRef((_props, ref) => {
             <SkillGroup title="Core Stack" tags={skills.core} accent />
             <SkillGroup title="Architecture & Testing" tags={skills.architecture} />
             <SkillGroup title="DevOps & Tools" tags={skills.devops} />
+
+            {/* ── HOẠT ĐỘNG NGOẠI KHOÁ (compact, single-column) ── */}
+            <div style={{ marginTop: 18 }}>
+              <SectionTitle>Ngoại khoá</SectionTitle>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+                {activities.map((act, i) => (
+                  <div key={i} style={{
+                    background:   'rgba(255,255,255,0.035)',
+                    border:       `1px solid ${C.border}`,
+                    borderRadius: 7,
+                    padding:      '7px 9px',
+                    display:      'flex',
+                    alignItems:   'flex-start',
+                    gap:          7,
+                  }}>
+                    <span style={{ fontSize: 13, flexShrink: 0, marginTop: 1 }}>{act.icon}</span>
+                    <div>
+                      <div style={{ fontSize: 9.5, fontWeight: 700, color: C.indigo, marginBottom: 1 }}>{act.name}</div>
+                      <div style={{ fontSize: 8.5, color: C.muted, lineHeight: 1.4 }}>{act.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -343,29 +367,7 @@ const CVTemplate = forwardRef((_props, ref) => {
           ))}
         </div>
 
-        {/* ── EXTRACURRICULAR ── */}
-        <div style={{ marginTop: 20 }}>
-          <SectionTitle>Hoạt động ngoại khoá</SectionTitle>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-            {activities.map((act, i) => (
-              <div key={i} style={{
-                background:   'rgba(255,255,255,0.035)',
-                border:       `1px solid ${C.border}`,
-                borderRadius: 8,
-                padding:      '8px 10px',
-                display:      'flex',
-                alignItems:   'flex-start',
-                gap:          8,
-              }}>
-                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>{act.icon}</span>
-                <div>
-                  <div style={{ fontSize: 10.5, fontWeight: 700, color: C.indigo, marginBottom: 2 }}>{act.name}</div>
-                  <div style={{ fontSize: 9.5, color: C.muted, lineHeight: 1.45 }}>{act.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Ngoại khoá đã chuyển vào cột phải trang 1 */}
       </div>
     </div>
   );

@@ -229,7 +229,7 @@ export default function CVPreviewModal({ isOpen, onClose }) {
                   transformOrigin: 'top left',
                   // Bù layout height thừa: flow = A4_H, visual = A4_H*scale
                   marginBottom:    `${(scale - 1) * A4_H_PX}px`,
-                  lineHeight:      0, // loại extra whitespace
+                  display:         'block', // tránh extra whitespace mà không ảnh hưởng lineHeight bên trong
                 }}
               >
                 <CVTemplate ref={cvRef} />
