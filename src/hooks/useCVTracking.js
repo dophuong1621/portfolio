@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 // Webhook URL của Google Apps Script
-const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwzO_Gs3UNayoq9NSGY_S1ScpPNVHksK24BheXcunA-7HxcuGQSeKVIrPoLCMMQjt6T/exec';
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwxMmx9aq3JVqW3jEd-jUl1ZUKvVk7JeastDi1S6dQQPi-N5veXh6nuZF-HsNYV9VYdSA/exec';
 
 // Cache geo data để không gọi API nhiều lần trong 1 session
 let geoCache = null;
