@@ -5,7 +5,7 @@ export const userInfo = {
   name: 'Đỗ Thế Phương',
   title: 'Full-Stack Developer (PHP / Laravel)',
   dob: '16/02/2001',
-  email: 'phuongdt1621@gmail.com',
+  email: 'dtp1621@gmail.com',
   phone: '0522901602',
   address: 'Phố Vọng, Hoàng Mai, Hà Nội',
   github: 'github.com/dophuong1621',
